@@ -1,0 +1,454 @@
+[1mdiff --git a/notebooks/Week_2_Data_Ingestion.ipynb b/notebooks/Week_2_Data_Ingestion.ipynb[m
+[1mindex 4c5bd70..c6a8944 100644[m
+[1m--- a/notebooks/Week_2_Data_Ingestion.ipynb[m
+[1m+++ b/notebooks/Week_2_Data_Ingestion.ipynb[m
+[36m@@ -14,7 +14,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 33,[m
+[32m+[m[32m   "execution_count": 1,[m
+    "id": "6d44d082-5dd1-42ad-9cae-32052e2c9dd6",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -27,16 +27,16 @@[m
+    "id": "be082f38-e215-4b7a-ab8b-097e9d1a1b07",[m
+    "metadata": {},[m
+    "source": [[m
+[31m-    "# Data Ingestion\n",[m
+[32m+[m[32m    "# Week 2 - Data Ingestion\n",[m
+     "\n",[m
+[31m-    "There are two main datasets to this project. The first is a dataset containing news article content including titles, content, and sentiment scores from various news sources around the AAPL stock. The second dataset (introduced later in the notebook) contains a time series of AAPL stock prices.   \n",[m
+[32m+[m[32m    "There are two main datasets to this project. The first is a dataset containing news article content including titles, content, and sentiment scores from various news sources around the AAPL stock. The second dataset (introduced later in the notebook) contains a time series of AAPL stock prices. The final dataset will combine the two datasets on date.\n",[m
+     "\n",[m
+     "## Sentiment Dataset"[m
+    ][m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 34,[m
+[32m+[m[32m   "execution_count": 2,[m
+    "id": "732faad9-8eff-4186-bbe3-1b5f28b56f8e",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -53,7 +53,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 35,[m
+[32m+[m[32m   "execution_count": 3,[m
+    "id": "419d554d-2ed6-4618-acf4-910d95387f4e",[m
+    "metadata": {},[m
+    "outputs": [[m
+[36m@@ -311,7 +311,7 @@[m
+        "9             0             1             0  "[m
+       ][m
+      },[m
+[31m-     "execution_count": 35,[m
+[32m+[m[32m     "execution_count": 3,[m
+      "metadata": {},[m
+      "output_type": "execute_result"[m
+     }[m
+[36m@@ -323,7 +323,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 36,[m
+[32m+[m[32m   "execution_count": 4,[m
+    "id": "834f8ef5-981c-4631-bad0-1c29df71c210",[m
+    "metadata": {},[m
+    "outputs": [[m
+[36m@@ -343,7 +343,7 @@[m
+        "dtype: int64"[m
+       ][m
+      },[m
+[31m-     "execution_count": 36,[m
+[32m+[m[32m     "execution_count": 4,[m
+      "metadata": {},[m
+      "output_type": "execute_result"[m
+     }[m
+[36m@@ -355,7 +355,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 51,[m
+[32m+[m[32m   "execution_count": 5,[m
+    "id": "e42f39c9-566f-41bd-9a7e-d99f061f75af",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -365,31 +365,53 @@[m
+     "    raw_data[col] = pd.to_numeric(raw_data[col],errors='coerce')\n",[m
+     "\n",[m
+     "#convert dates to a datetime object and content to a string\n",[m
+[31m-    "raw_data['date'] = pd.to_datetime(raw_data['date'],errors='coerce',utc=True)\n",[m
+[31m-    "raw_data['date'] = raw_data['date'].dt.tz_convert(None)\n",[m
+[31m-    "raw_data['content'] = raw_data['content'].astype('str')"[m
+[32m+[m[32m    "raw_data['date'] = pd.to_datetime(raw_data['date'],errors='coerce',utc=True).dt.date\n",[m
+[32m+[m[32m    "raw_data['content'] = raw_data['content'].astype('str')\n"[m
+    ][m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 52,[m
+[32m+[m[32m   "execution_count": 27,[m
+    "id": "36354c43-1f7f-445b-bbc6-6b1618145c3f",[m
+    "metadata": {},[m
+[31m-   "outputs": [],[m
+[32m+[m[32m   "outputs": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m     "name": "stdout",[m
+[32m+[m[32m     "output_type": "stream",[m
+[32m+[m[32m     "text": [[m
+[32m+[m[32m      "Column: date , Data Type: object\n",[m
+[32m+[m[32m      "Column: title , Data Type: object\n",[m
+[32m+[m[32m      "Column: content , Data Type: object\n",[m
+[32m+[m[32m      "Column: link , Data Type: object\n",[m
+[32m+[m[32m      "Column: symbols , Data Type: object\n",[m
+[32m+[m[32m      "Column: tags , Data Type: object\n",[m
+[32m+[m[32m      "Column: sentiment_polarity , Data Type: float64\n",[m
+[32m+[m[32m      "Column: sentiment_neg , Data Type: float64\n",[m
+[32m+[m[32m      "Column: sentiment_neu , Data Type: float64\n",[m
+[32m+[m[32m      "Column: sentiment_pos , Data Type: float64\n",[m
+[32m+[m[32m      "Column: Net Sentiment , Data Type: float64\n"[m
+[32m+[m[32m     ][m
+[32m+[m[32m    }[m
+[32m+[m[32m   ],[m
+    "source": [[m
+[31m-    "#this data is messy, drop the columns that don't have the necessary data\n",[m
+[31m-    "raw_data = raw_data.dropna(subset=['sentiment_pos','sentiment_neu','sentiment_neg','sentiment_polarity','content','date'])"[m
+[32m+[m[32m    "#this data is messy, drop observations that have NAs in critical columns\n",[m
+[32m+[m[32m    "raw_data = raw_data.dropna(subset=['sentiment_pos','sentiment_neu','sentiment_neg','sentiment_polarity','content','date'])\n",[m
+[32m+[m[32m    "\n",[m
+[32m+[m[32m    "#print out the data type of each column to ensure conversions from above worked\n",[m
+[32m+[m[32m    "for col in raw_data.columns:\n",[m
+[32m+[m[32m    "    print(f'Column: {col} , Data Type: {raw_data[col].dtype}')"[m
+    ][m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 53,[m
+[32m+[m[32m   "execution_count": 7,[m
+    "id": "68990e13-de3b-4fd5-85c6-73057fd2820b",[m
+    "metadata": {},[m
+    "outputs": [],[m
+    "source": [[m
+[31m-    "#Create a single sentiment score that we can use to determine if an article contains negative or positive sentiment\n",[m
+[31m-    "raw_data['Overall Sentiment'] = raw_data['sentiment_pos'] - raw_data['sentiment_neg']\n",[m
+[32m+[m[32m    "#Create a single sentiment score that we can use to determine if an article contains more negative or positive sentiment\n",[m
+[32m+[m[32m    "raw_data['Net Sentiment'] = raw_data['sentiment_pos'] - raw_data['sentiment_neg']\n",[m
+[32m+[m[32m    "#while not the main target variable, net sentiment could be interesting to determine presence of positive and negative language\n",[m
+     "#we can also make this a classification model by coverting to 'Positive', 'Neutral', or 'Negative' here."[m
+    ][m
+   },[m
+[36m@@ -398,7 +420,33 @@[m
+    "id": "1db43fb5-edb6-4392-9e97-60e579db7bdc",[m
+    "metadata": {},[m
+    "source": [[m
+[31m-    "The \"content\" column will be the predictor variable in the first model, and the string will be transformed into a numerical matrix using feature engineering methods such as TF-IDF. The \"overall sentiment\" variable will be the target variable. The goal of the first model will be to predict the sentiment of a news article given its content."[m
+[32m+[m[32m    "The \"content\" column will be the predictor variable in the first model, and the string will be transformed into a numerical matrix using feature engineering methods such as TF-IDF. The \"snetiment polarity\" variable will be the target variable. The goal of the first model will be to predict the sentiment polarity of a news article given its content."[m
+[32m+[m[32m   ][m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m   "cell_type": "code",[m
+[32m+[m[32m   "execution_count": 8,[m
+[32m+[m[32m   "id": "02ea6233-e4a1-4ba8-a7a4-79827388e332",[m
+[32m+[m[32m   "metadata": {},[m
+[32m+[m[32m   "outputs": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m     "name": "stdout",[m
+[32m+[m[32m     "output_type": "stream",[m
+[32m+[m[32m     "text": [[m
+[32m+[m[32m      "(29700, 11)\n"[m
+[32m+[m[32m     ][m
+[32m+[m[32m    }[m
+[32m+[m[32m   ],[m
+[32m+[m[32m   "source": [[m
+[32m+[m[32m    "print(raw_data.shape)"[m
+[32m+[m[32m   ][m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m   "cell_type": "markdown",[m
+[32m+[m[32m   "id": "15284461-a4a0-4571-b947-7c0b559a4670",[m
+[32m+[m[32m   "metadata": {},[m
+[32m+[m[32m   "source": [[m
+[32m+[m[32m    "This dataset has 29,700 rows and 10 columns (plus the net sentiment score column created by us)"[m
+    ][m
+   },[m
+   {[m
+[36m@@ -411,7 +459,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 54,[m
+[32m+[m[32m   "execution_count": 9,[m
+    "id": "c18ccdb2-6cb6-47df-9412-b75ed5a69cea",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -421,7 +469,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 55,[m
+[32m+[m[32m   "execution_count": 10,[m
+    "id": "6ccbb51d-264d-4e8d-9841-b455354480b2",[m
+    "metadata": {},[m
+    "outputs": [[m
+[36m@@ -519,7 +567,7 @@[m
+        "9  Jan-14-2005              1.25"[m
+       ][m
+      },[m
+[31m-     "execution_count": 55,[m
+[32m+[m[32m     "execution_count": 10,[m
+      "metadata": {},[m
+      "output_type": "execute_result"[m
+     }[m
+[36m@@ -530,7 +578,7 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 56,[m
+[32m+[m[32m   "execution_count": 11,[m
+    "id": "149a009b-2443-4d0d-b4e7-09d1de7f752c",[m
+    "metadata": {},[m
+    "outputs": [[m
+[36m@@ -542,7 +590,7 @@[m
+        "dtype: int64"[m
+       ][m
+      },[m
+[31m-     "execution_count": 56,[m
+[32m+[m[32m     "execution_count": 11,[m
+      "metadata": {},[m
+      "output_type": "execute_result"[m
+     }[m
+[36m@@ -554,16 +602,62 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 57,[m
+[32m+[m[32m   "execution_count": 15,[m
+    "id": "fcc08b5d-d6a0-4e33-8361-c749d202e9ed",[m
+    "metadata": {},[m
+    "outputs": [],[m
+    "source": [[m
+     "#Convert values to the expected formatting\n",[m
+[31m-    "ts_data['Dates'] = pd.to_datetime(ts_data['Dates'])\n",[m
+[32m+[m[32m    "ts_data['Dates'] = pd.to_datetime(ts_data['Dates']).dt.date\n",[m
+     "ts_data['AAPL Share Price'] = ts_data['AAPL Share Price'].astype('float')"[m
+    ][m
+   },[m
+[32m+[m[32m  {[m
+[32m+[m[32m   "cell_type": "code",[m
+[32m+[m[32m   "execution_count": 22,[m
+[32m+[m[32m   "id": "b9864a5a-72dc-487d-9a2b-7a554e357649",[m
+[32m+[m[32m   "metadata": {},[m
+[32m+[m[32m   "outputs": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m     "name": "stdout",[m
+[32m+[m[32m     "output_type": "stream",[m
+[32m+[m[32m     "text": [[m
+[32m+[m[32m      "Column: Dates , Data Type: <class 'datetime.date'>\n",[m
+[32m+[m[32m      "Column: AAPL Share Price , Data Type: <class 'numpy.float64'>\n"[m
+[32m+[m[32m     ][m
+[32m+[m[32m    }[m
+[32m+[m[32m   ],[m
+[32m+[m[32m   "source": [[m
+[32m+[m[32m    "for col in ts_data.columns:\n",[m
+[32m+[m[32m    "    print(f'Column: {col} , Data Type: {type(ts_data[col][0])}')"[m
+[32m+[m[32m   ][m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m   "cell_type": "code",[m
+[32m+[m[32m   "execution_count": 31,[m
+[32m+[m[32m   "id": "c7c6ff85-6856-42ea-b180-eb882bcb9916",[m
+[32m+[m[32m   "metadata": {},[m
+[32m+[m[32m   "outputs": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m     "name": "stdout",[m
+[32m+[m[32m     "output_type": "stream",[m
+[32m+[m[32m     "text": [[m
+[32m+[m[32m      "(5298, 2)\n"[m
+[32m+[m[32m     ][m
+[32m+[m[32m    }[m
+[32m+[m[32m   ],[m
+[32m+[m[32m   "source": [[m
+[32m+[m[32m    "print(ts_data.shape)"[m
+[32m+[m[32m   ][m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m   "cell_type": "markdown",[m
+[32m+[m[32m   "id": "695dc5b7-f949-4897-a409-e9f62ddf2a7e",[m
+[32m+[m[32m   "metadata": {},[m
+[32m+[m[32m   "source": [[m
+[32m+[m[32m    "There are 5,298 rows in this dataset and two columns (date and price)."[m
+[32m+[m[32m   ][m
+[32m+[m[32m  },[m
+   {[m
+    "cell_type": "markdown",[m
+    "id": "1698c8e5-d887-49c6-8379-bb12199f2194",[m
+[36m@@ -574,18 +668,27 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 58,[m
+[32m+[m[32m   "execution_count": 19,[m
+    "id": "8688e8a4-5941-4967-baa0-a285215f784a",[m
+    "metadata": {},[m
+[31m-   "outputs": [],[m
+[32m+[m[32m   "outputs": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m     "name": "stdout",[m
+[32m+[m[32m     "output_type": "stream",[m
+[32m+[m[32m     "text": [[m
+[32m+[m[32m      "(1574, 1)\n"[m
+[32m+[m[32m     ][m
+[32m+[m[32m    }[m
+[32m+[m[32m   ],[m
+    "source": [[m
+     "#Get the average sentiment by day, makes it possible to join on AAPL daily stock prices\n",[m
+[31m-    "sentiment_data = raw_data.groupby(['date'])[['Overall Sentiment']].mean()"[m
+[32m+[m[32m    "sentiment_data = raw_data.groupby(['date'])[['sentiment_polarity']].mean()\n",[m
+[32m+[m[32m    "print(sentiment_data.shape)"[m
+    ][m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 61,[m
+[32m+[m[32m   "execution_count": 17,[m
+    "id": "91b987cd-b314-4d0a-80bd-66dab4895fc3",[m
+    "metadata": {},[m
+    "outputs": [],[m
+[36m@@ -596,7 +699,28 @@[m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 62,[m
+[32m+[m[32m   "execution_count": 30,[m
+[32m+[m[32m   "id": "0a5a6bfc-699e-4295-a487-7ce18a705db9",[m
+[32m+[m[32m   "metadata": {},[m
+[32m+[m[32m   "outputs": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m     "name": "stdout",[m
+[32m+[m[32m     "output_type": "stream",[m
+[32m+[m[32m     "text": [[m
+[32m+[m[32m      "Column: sentiment_polarity , Data Type: <class 'numpy.float64'>\n",[m
+[32m+[m[32m      "Column: Dates , Data Type: <class 'datetime.date'>\n",[m
+[32m+[m[32m      "Column: AAPL Share Price , Data Type: <class 'numpy.float64'>\n"[m
+[32m+[m[32m     ][m
+[32m+[m[32m    }[m
+[32m+[m[32m   ],[m
+[32m+[m[32m   "source": [[m
+[32m+[m[32m    "for col in all_data.columns:\n",[m
+[32m+[m[32m    "    print(f'Column: {col} , Data Type: {type(all_data[col][0])}')"[m
+[32m+[m[32m   ][m
+[32m+[m[32m  },[m
+[32m+[m[32m  {[m
+[32m+[m[32m   "cell_type": "code",[m
+[32m+[m[32m   "execution_count": 18,[m
+    "id": "418a89be-8eb6-4de5-9791-b127418aff63",[m
+    "metadata": {},[m
+    "outputs": [[m
+[36m@@ -621,7 +745,7 @@[m
+        "  <thead>\n",[m
+        "    <tr style=\"text-align: right;\">\n",[m
+        "      <th></th>\n",[m
+[31m-       "      <th>Overall Sentiment</th>\n",[m
+[32m+[m[32m       "      <th>sentiment_polarity</th>\n",[m
+        "      <th>Dates</th>\n",[m
+        "      <th>AAPL Share Price</th>\n",[m
+        "    </tr>\n",[m
+[36m@@ -699,23 +823,23 @@[m
+        "</div>"[m
+       ],[m
+       "text/plain": [[m
+[31m-       "      Overall Sentiment      Dates  AAPL Share Price\n",[m
+[31m-       "0                   NaN 2005-01-03              1.13\n",[m
+[31m-       "1                   NaN 2005-01-04              1.14\n",[m
+[31m-       "2                   NaN 2005-01-05              1.15\n",[m
+[31m-       "3                   NaN 2005-01-06              1.15\n",[m
+[31m-       "4                   NaN 2005-01-07              1.24\n",[m
+[31m-       "...                 ...        ...               ...\n",[m
+[31m-       "5293                NaN 2026-01-16            255.53\n",[m
+[31m-       "5294                NaN 2026-01-20            246.70\n",[m
+[31m-       "5295                NaN 2026-01-21            247.65\n",[m
+[31m-       "5296                NaN 2026-01-22            248.35\n",[m
+[31m-       "5297                NaN 2026-01-23            247.98\n",[m
+[32m+[m[32m       "      sentiment_polarity       Dates  AAPL Share Price\n",[m
+[32m+[m[32m       "0                    NaN  2005-01-03              1.13\n",[m
+[32m+[m[32m       "1                    NaN  2005-01-04              1.14\n",[m
+[32m+[m[32m       "2                    NaN  2005-01-05              1.15\n",[m
+[32m+[m[32m       "3                    NaN  2005-01-06              1.15\n",[m
+[32m+[m[32m       "4                    NaN  2005-01-07              1.24\n",[m
+[32m+[m[32m       "...                  ...         ...               ...\n",[m
+[32m+[m[32m       "5293                 NaN  2026-01-16            255.53\n",[m
+[32m+[m[32m       "5294                 NaN  2026-01-20            246.70\n",[m
+[32m+[m[32m       "5295                 NaN  2026-01-21            247.65\n",[m
+[32m+[m[32m       "5296                 NaN  2026-01-22            248.35\n",[m
+[32m+[m[32m       "5297                 NaN  2026-01-23            247.98\n",[m
+        "\n",[m
+        "[5298 rows x 3 columns]"[m
+       ][m
+      },[m
+[31m-     "execution_count": 62,[m
+[32m+[m[32m     "execution_count": 18,[m
+      "metadata": {},[m
+      "output_type": "execute_result"[m
+     }[m
+[36m@@ -729,36 +853,17 @@[m
+    "id": "1066cae6-320a-432b-9c0e-b3316e209c86",[m
+    "metadata": {},[m
+    "source": [[m
+[31m-    "We have a greater amount of stock price data than news sentiment data on the AAPL stock. We can remove dates without any sentiment analysis at a future date. For right now, this data could be helpful for a traditional forecasting model"[m
+[32m+[m[32m    "We have a greater amount of stock price data than news sentiment data on the AAPL stock. There are currently 5,298 rows and 3 columns, but only 1,574 rows have sentiment data (as shown from the print statement above). We can remove dates without any sentiment analysis at a future date. For right now, this data could be helpful for a traditional forecasting model"[m
+    ][m
+   },[m
+   {[m
+    "cell_type": "code",[m
+[31m-   "execution_count": 65,[m
+[32m+[m[32m   "execution_count": null,[m
+    "id": "6584fd16-18eb-4f61-9ee1-2c1e3548c9ad",[m
+    "metadata": {},[m
+[31m-   "outputs": [[m
+[31m-    {[m
+[31m-     "data": {[m
+[31m-      "text/plain": [[m
+[31m-       "count    331.000000\n",[m
+[31m-       "mean       0.096082\n",[m
+[31m-       "std        0.108209\n",[m
+[31m-       "min       -0.420000\n",[m
+[31m-       "25%        0.027375\n",[m
+[31m-       "50%        0.097667\n",[m
+[31m-       "75%        0.157167\n",[m
+[31m-       "max        0.489000\n",[m
+[31m-       "Name: Overall Sentiment, dtype: float64"[m
+[31m-      ][m
+[31m-     },[m
+[31m-     "execution_count": 65,[m
+[31m-     "metadata": {},[m
+[31m-     "output_type": "execute_result"[m
+[31m-    }[m
+[31m-   ],[m
+[32m+[m[32m   "outputs": [],[m
+    "source": [[m
+[31m-    "all_data['Overall Sentiment'].describe()"[m
+[32m+[m[32m    "all_data['sentiment_polarity'].describe()"[m
+    ][m
+   },[m
+   {[m
+[36m@@ -766,7 +871,7 @@[m
+    "id": "c63f4f73-4d9d-403f-aebc-9a5f8294f6fd",[m
+    "metadata": {},[m
+    "source": [[m
+[31m-    "The overall sentiment score looks to be performing as expected. Scores range from -.42 to .49, but most are positive (which is expected due to Apple's stellar performance during this time period."[m
+[32m+[m[32m    "The sentiment polarity looks to be performing as expected. Scores range from -.93 to 1.00, but most are positive (which is expected due to Apple's stellar performance during this time period."[m
+    ][m
+   },[m
+   {[m
+[36m@@ -774,7 +879,7 @@[m
+    "id": "2e063496-5929-475f-926b-0ca1273fca69",[m
+    "metadata": {},[m
+    "source": [[m
+[31m-    "The main model is a time series forecasting model, so it will use stock price as the main target variable. There will be two possible forecasting models, the traditional will exclusively use previous stock prices as predictor variables, while the second model will use overall sentiment as another predictor variable."[m
+[32m+[m[32m    "The main model is a time series forecasting model, so it will use stock price as the main target variable. There will be two possible forecasting models, the traditional will exclusively use previous stock prices as predictor variables, while the second model will use sentiment polarity as another predictor variable."[m
+    ][m
+   },[m
+   {[m
