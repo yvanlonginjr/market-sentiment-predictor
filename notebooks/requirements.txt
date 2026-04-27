@@ -65,7 +65,7 @@ hf-xet==1.4.2
 hpack==4.0.0
 httpcore==1.0.9
 httpx==0.28.1
-huggingface_hub==1.7.2
+huggingface_hub==1.8.0
 hyperframe @ file:///home/conda/feedstock_root/build_artifacts/hyperframe_1619110129307/work
 hyperlink==21.0.0
 idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1726459485162/work
