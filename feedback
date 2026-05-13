@@ -1,0 +1,33 @@
+Asher Erickson 
+Colin Truran 
+Elise Longenecker 
+Yvan Longin 
+
+Applied Analytics Project - Week 14 Assignment
+
+Group Forecast and Furious Peer Review
+
+Overall GitHub Structure
+
+- The project uses the cookie cutter template that was recommended at the start of the class, but there are a few unused folders.
+- Each file is well labeled with a clean title, which makes it easy to follow the work progression.
+- Overall, the GitHub structure is very clean with no major flaws besides the redundant folders.
+- We recommend changing the name of the first report to “Week 1” as the current title makes it easy to assume that it is the final report.
+
+Code/Notebook
+
+- The final notebook is very well structured and detailed.
+- The commentary makes it much easier to understand the function of each section of code and is easy to follow along with.
+- The notebook is quite long and can feel overwhelming at times, so shortening the model testing section would help reduce repetitiveness.
+
+Code Output
+
+- Every output generated is clearly visible while also providing quality insights.
+- Some outputs are unnecessary, such as pip install outputs and grid search outputs.
+- There are a lot of confusion matrices in the notebook, so converting some of them into smaller tables would help reduce the size of the notebook.
+  
+Project Report
+  
+- The report is well detailed and covers all important topics by following the MDLC format.
+- A conclusion section would have paired well with the model performance table.
+- The report does not mention any future plans or deployment considerations for the project.
